@@ -8,65 +8,111 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { GalleryVerticalEnd } from "lucide-react"
 import * as React from "react"
+import { Link } from "react-router-dom"
 
-const data = {
-  navMain: [
-    {
-      title: "Animations",
-      url: "#",
-    },
-    {
-      title: "Building Your Application",
-      url: "#",
-      items: [
-        {
-          title: "Data Fetching",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "API Reference",
-      url: "#",
-    },
-    {
-      title: "Architecture",
-      url: "#",
-    },
-    {
-      title: "Community",
-      url: "#",
-      items: [
-        {
-          title: "Contribution Guide",
-          url: "#",
-        },
-      ],
-    },
-  ],
+type NavItem = {
+  title: string
+  path: string
+  items?: NavItem[]
 }
+
+const navItems: NavItem[] = [
+  {
+    title: "Animations",
+    path: "/animations",
+  },
+  {
+    title: "Building Your Application",
+    path: "/building-your-application",
+    items: [
+      {
+        title: "Data Fetching",
+        path: "/building-your-application/data-fetching",
+      },
+      {
+        title: "Components",
+        path: "/building-your-application/components",
+      },
+    ],
+  },
+  {
+    title: "API Reference",
+    path: "/api-reference",
+  },
+  {
+    title: "Architecture",
+    path: "/architecture",
+  },
+  {
+    title: "Community",
+    path: "/community",
+    items: [
+      {
+        title: "Contribution Guide",
+        path: "/community/contribution-guide",
+      },
+      {
+        title: "Code of Conduct",
+        path: "/community/code-of-conduct",
+      },
+    ],
+  },
+]
+
+const NavItem = ({
+  item,
+  level = 0,
+}: {
+  item: NavItem
+  level?: number
+}) => {
+  return (
+    <SidebarMenuItem>
+      <SidebarMenuButton asChild>
+        <Link 
+          to={item.path}
+          className="font-medium block w-full text-left"
+        >
+          {item.title}
+        </Link>
+      </SidebarMenuButton>
+      {item.items?.length ? (
+        <SidebarMenuSub>
+          {item.items.map((subItem) => (
+            <NavItem 
+              key={subItem.path} 
+              item={subItem} 
+              level={level + 1} 
+            />
+          ))}
+        </SidebarMenuSub>
+      ) : null}
+    </SidebarMenuItem>
+  )
+}
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <a href="#">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <GalleryVerticalEnd className="size-4" />
+            <SidebarMenuButton asChild>
+              <Link to="/" className="block">
+                <div className="flex items-center gap-2">
+                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                    <GalleryVerticalEnd className="size-4" />
+                  </div>
+                  <div className="flex flex-col gap-0.5 leading-none">
+                    <span className="font-medium">{appSettings.APP_NAME}</span>
+                    <span className="text-xs opacity-70">{appSettings.APP_VERSION}</span>
+                  </div>
                 </div>
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-medium">{appSettings.APP_NAME}</span>
-                  <span className="">{appSettings.APP_VERSION}</span>
-                </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -74,25 +120,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {data.navMain.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild>
-                  <a href={item.url} className="font-medium">
-                    {item.title}
-                  </a>
-                </SidebarMenuButton>
-                {item.items?.length ? (
-                  <SidebarMenuSub>
-                    {item.items.map((item) => (
-                      <SidebarMenuSubItem key={item.title}>
-                        <SidebarMenuSubButton asChild isActive={item.isActive}>
-                          <a href={item.url}>{item.title}</a>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
-                ) : null}
-              </SidebarMenuItem>
+            {navItems.map((item) => (
+              <NavItem 
+                key={item.path}
+                item={item} 
+              />
             ))}
           </SidebarMenu>
         </SidebarGroup>

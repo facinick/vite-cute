@@ -1,0 +1,220 @@
+# Project Documentation
+
+## Project Overview
+This is a modern React TypeScript application built with Vite, featuring a comprehensive UI component library using Radix UI primitives and styled with Tailwind CSS. The project follows modern React patterns and best practices, including component composition, hooks, and state management with Zustand.
+
+## Development Setup
+
+### Prerequisites
+- Node.js (version 18+ recommended)
+- npm, yarn, or bun (bun is used as the package manager based on bun.lockb)
+- Git
+
+### Installation
+```bash
+# Install dependencies using bun (recommended)
+bun install
+
+# Or using npm
+npm install
+
+# Or using yarn
+yarn install
+```
+
+### Available Scripts
+- `bun dev` - Start development server
+- `bun build` - Build for production
+- `bun lint` - Run ESLint
+- `bun preview` - Preview production build
+
+## Technology Stack
+- **Framework**: React 19
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS with CSS Modules
+- **UI Components**: ShadCN UI Components
+- **State Management**: Zustand
+- **Form Handling**: React Hook Form with Zod validation
+- **Icons**: Lucide React
+- **Charts**: Recharts
+- **Animations**: Framer Motion (implied by project structure)
+- **Date Handling**: date-fns
+
+## Project Structure
+```
+cute-vite/
+├── public/          # Static assets served directly
+├── src/             # Main application source code
+│   ├── assets/      # Static assets like images, fonts, etc.
+│   ├── components/  # React components (including UI components)
+│   ├── hooks/       # Custom React hooks
+│   ├── lib/         # Utility functions and helper libraries
+│   ├── store/       # Zustand state management stores
+│   ├── App.css      # Global application styles for App component
+│   ├── App.tsx      # Main application component
+│   ├── app-settings.ts # Application-wide settings/configuration
+│   ├── index.css    # Global application styles
+│   ├── main.tsx     # Entry point for the application
+│   └── vite-env.d.ts # TypeScript environment definitions for Vite
+```
+
+## Development Guidelines
+
+### Component Development
+1. **Component Location**: Place all components in `src/components/`
+2. **Naming**: Use PascalCase for component files (e.g., `Button.tsx`)
+3. **Props**: Define prop types using TypeScript interfaces
+4. **Styling**: Use Tailwind CSS classes with `cn` utility for conditional classes
+
+### State Management
+- Use Zustand for global state management
+- Keep stores in `src/store/`
+- Follow the store naming convention: `use[Feature]Store.ts`
+
+### Styling
+- Use Tailwind CSS for styling
+- For complex components, use CSS Modules
+- Follow the design system defined in `tailwind.config.js`
+
+### Forms
+- Use `react-hook-form` with `zod` for form validation
+- Create reusable form components in `src/components/forms/`
+
+### Testing
+- Write unit tests for components and hooks
+- Place test files next to the component with `.test.tsx` extension
+- Use React Testing Library for component testing
+
+### Code Quality
+- Follow ESLint and Prettier rules defined in the project
+- Run `bun lint` before committing
+- Write meaningful commit messages following conventional commits
+
+## Best Practices
+1. **Type Safety**: Always use TypeScript types and interfaces
+2. **Component Composition**: Prefer composition over inheritance
+3. **Performance**: Use `React.memo`, `useMemo`, and `useCallback` appropriately
+4. **Accessibility**: Ensure all components are accessible (follows WAI-ARIA standards)
+5. **Responsive Design**: Design for all screen sizes using Tailwind's responsive utilities
+
+## Deployment
+Build the application using:
+```bash
+bun build
+```
+
+The production-ready files will be in the `dist/` directory.
+
+## Troubleshooting
+- If you encounter dependency issues, delete `node_modules` and `bun.lockb` then reinstall
+- For TypeScript errors, ensure all types are properly defined
+- Check the browser's console for runtime errors
+
+## Contributing
+1. Create a new branch for your feature/fix
+2. Follow the coding standards and guidelines
+3. Write tests for new features
+4. Submit a pull request with a clear description of changes
+
+# Repository Structure
+
+```
+cute-vite/
+├── public/          # Static assets served directly
+├── src/             # Main application source code
+│   ├── assets/      # Static assets like images, fonts, etc.
+│   ├── components/  # React components
+│   │   └── ui/      # Reusable UI components (e.g., Shadcn UI)
+│   ├── hooks/       # Custom React hooks
+│   ├── lib/         # Utility functions and helper libraries
+│   ├── store/       # Zustand state management stores
+│   ├── App.css      # Global application styles for App component
+│   ├── App.tsx      # Main application component
+│   ├── app-settings.ts # Application-wide settings/configuration
+│   ├── index.css    # Global application styles
+│   ├── main.tsx     # Entry point for the application
+│   └── vite-env.d.ts # TypeScript environment definitions for Vite
+├── .gitignore       # Specifies intentionally untracked files that Git should ignore
+├── bun.lockb        # Bun lock file for dependency management
+├── components.json  # Configuration file, possibly for UI components like Shadcn
+├── eslint.config.js # ESLint configuration file
+├── index.html       # Main HTML file
+├── package.json     # Project dependencies and scripts
+├── README.md        # Project README file
+├── tsconfig.app.json # TypeScript configuration for the application
+├── tsconfig.json    # Base TypeScript configuration
+├── tsconfig.node.json # TypeScript configuration for Node.js environment
+└── vite.config.ts   # Vite build configuration
+```
+
+# Libraries Used
+
+Based on `package.json`:
+
+## Dependencies:
+
+*   `@hookform/resolvers`: ^5.0.1
+*   `@radix-ui/react-accordion`: ^1.2.11
+*   `@radix-ui/react-alert-dialog`: ^1.1.14
+*   `@radix-ui/react-aspect-ratio`: ^1.1.7
+*   `@radix-ui/react-avatar`: ^1.1.10
+*   `@radix-ui/react-checkbox`: ^1.3.2
+*   `@radix-ui/react-collapsible`: ^1.1.11
+*   `@radix-ui/react-context-menu`: ^2.2.15
+*   `@radix-ui/react-dialog`: ^1.1.14
+*   `@radix-ui/react-dropdown-menu`: ^2.1.15
+*   `@radix-ui/react-hover-card`: ^1.1.14
+*   `@radix-ui/react-label`: ^2.1.7
+*   `@radix-ui/react-menubar`: ^1.1.15
+*   `@radix-ui/react-navigation-menu`: ^1.2.13
+*   `@radix-ui/react-popover`: ^1.1.14
+*   `@radix-ui/react-progress`: ^1.1.7
+*   `@radix-ui/react-radio-group`: ^1.3.7
+*   `@radix-ui/react-scroll-area`: ^1.2.9
+*   `@radix-ui/react-select`: ^2.2.5
+*   `@radix-ui/react-separator`: ^1.1.7
+*   `@radix-ui/react-slider`: ^1.3.5
+*   `@radix-ui/react-slot`: ^1.2.3
+*   `@radix-ui/react-switch`: ^1.2.5
+*   `@radix-ui/react-tabs`: ^1.1.12
+*   `@radix-ui/react-toggle`: ^1.1.9
+*   `@radix-ui/react-toggle-group`: ^1.1.10
+*   `@radix-ui/react-tooltip`: ^1.2.7
+*   `@tailwindcss/vite`: ^4.1.8
+*   `class-variance-authority`: ^0.7.1
+*   `clsx`: ^2.1.1
+*   `cmdk`: ^1.1.1
+*   `date-fns`: ^4.1.0
+*   `embla-carousel-react`: ^8.6.0
+*   `input-otp`: ^1.4.2
+*   `lucide-react`: ^0.511.0
+*   `next-themes`: ^0.4.6
+*   `react`: ^19.0.0
+*   `react-day-picker`: ^8.10.1
+*   `react-dom`: ^19.0.0
+*   `react-hook-form`: ^7.56.4
+*   `react-resizable-panels`: ^3.0.2
+*   `recharts`: ^2.15.3
+*   `sonner`: ^2.0.3
+*   `tailwind-merge`: ^3.3.0
+*   `tailwindcss`: ^4.1.8
+*   `vaul`: ^1.1.2
+*   `zod`: ^3.25.42
+*   `zustand`: ^5.0.5
+
+## Dev Dependencies:
+
+*   `@eslint/js`: ^9.21.0
+*   `@types/node`: ^22.15.28
+*   `@types/react`: ^19.0.10
+*   `@types/react-dom`: ^19.0.4
+*   `@vitejs/plugin-react-swc`: ^3.8.0
+*   `eslint`: ^9.21.0
+*   `eslint-plugin-react-hooks`: ^5.1.0
+*   `eslint-plugin-react-refresh`: ^0.4.19
+*   `globals`: ^15.15.0
+*   `tw-animate-css`: ^1.3.2
+*   `typescript`: ~5.7.2
+*   `typescript-eslint`: ^8.24.1
+*   `vite`: ^6.2.0
+``` 

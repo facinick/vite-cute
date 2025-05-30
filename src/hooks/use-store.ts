@@ -3,13 +3,18 @@ import { persist } from 'zustand/middleware';
 import { BearSlice, createBearSlice } from '../store/bearSlice';
 import { createFishSlice, FishSlice } from '../store/fishSlice';
 
-export const useStore = create<BearSlice & FishSlice>()(
-  // Adding persist middleware as an example
+// Create a type for our store that combines all slices
+type StoreState = BearSlice & FishSlice;
+
+// Create the store
+export const useStore = create<StoreState>()(
   persist(
-    (...a) => ({
-      ...createBearSlice(...a),
-      ...createFishSlice(...a),
+    (set, get, api) => ({
+      ...createBearSlice(set, get, api),
+      ...createFishSlice(set, get, api),
     }),
-    { name: 'store' },
+    {
+      name: 'app-storage',
+    },
   ),
 ); 
