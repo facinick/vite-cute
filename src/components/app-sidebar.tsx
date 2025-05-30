@@ -10,17 +10,23 @@ import {
   SidebarMenuSub,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import { GalleryVerticalEnd } from "lucide-react"
+import { GalleryVerticalEnd, Gamepad2 } from "lucide-react"
 import * as React from "react"
 import { Link } from "react-router-dom"
 
 type NavItem = {
   title: string
   path: string
+  icon?: React.ReactNode
   items?: NavItem[]
 }
 
 const navItems: NavItem[] = [
+  {
+    title: "Game of Life",
+    path: "/game-of-life",
+    icon: <Gamepad2 className="h-4 w-4" />
+  },
   {
     title: "Animations",
     path: "/animations",
@@ -75,9 +81,10 @@ const NavItem = ({
       <SidebarMenuButton asChild>
         <Link 
           to={item.path}
-          className="font-medium block w-full text-left"
+          className="font-medium block w-full text-left flex items-center gap-2"
         >
-          {item.title}
+          {item.icon && <span className="flex-shrink-0">{item.icon}</span>}
+          <span>{item.title}</span>
         </Link>
       </SidebarMenuButton>
       {item.items?.length ? (

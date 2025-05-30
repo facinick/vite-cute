@@ -4,6 +4,7 @@ import { AppDashboard } from '@/components/app-dashboard';
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('@/pages/home'));
+const GameOfLife = lazy(() => import('@/pages/game-of-life'));
 const Animations = lazy(() => import('@/pages/animations'));
 const BuildingYourApplication = lazy(() => import('@/pages/building-your-application'));
 const DataFetching = lazy(() => import('@/pages/data-fetching'));
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "animations",
         element: createLazyElement(Animations),
+      },
+      {
+        path: "game-of-life",
+        element: createLazyElement(GameOfLife),
       },
       {
         path: "building-your-application",
