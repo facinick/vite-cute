@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/app-sidebar";
+import { ModeToggle } from "@/components/mode-toggle";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,12 +8,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useStore } from '@/hooks/use-store';
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
@@ -48,48 +44,54 @@ export function AppDashboard() {
 
   return (
     <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b">
-          <div className="flex items-center gap-2 px-4 w-full">
-            <SidebarTrigger className="md:hidden" />
-            <Separator orientation="vertical" className="h-4 mx-2 hidden md:block" />
-            <Breadcrumb className="flex-1">
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link to="/" className="text-sm hover:underline">
-                      Home
-                    </Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                {breadcrumbs.map((breadcrumb, _index) => (
-                  <React.Fragment key={breadcrumb.to}>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                      {breadcrumb.isLast ? (
-                        <BreadcrumbPage className="text-sm">
-                          {breadcrumb.name}
-                        </BreadcrumbPage>
-                      ) : (
-                        <BreadcrumbLink asChild>
-                          <Link to={breadcrumb.to} className="text-sm hover:underline">
+      <div className="flex h-screen w-screen overflow-hidden">
+        <AppSidebar />
+        <div className="flex-1 flex flex-col overflow-hidden w-full">
+          <header className="sticky top-0 z-10 h-16 border-b bg-background w-full">
+            <div className="flex h-full items-center px-6 w-full gap-4">
+              <SidebarTrigger className="md:hidden" />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <Link to="/" className="text-sm font-medium">
+                        Home
+                      </Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  {breadcrumbs.map((breadcrumb, _index) => (
+                    <React.Fragment key={breadcrumb.to}>
+                      <BreadcrumbSeparator />
+                      <BreadcrumbItem>
+                        {breadcrumb.isLast ? (
+                          <BreadcrumbPage className="text-sm">
                             {breadcrumb.name}
-                          </Link>
-                        </BreadcrumbLink>
-                      )}
-                    </BreadcrumbItem>
-                  </React.Fragment>
-                ))}
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-        </header>
+                          </BreadcrumbPage>
+                        ) : (
+                          <BreadcrumbLink asChild>
+                            <Link to={breadcrumb.to} className="text-sm hover:underline">
+                              {breadcrumb.name}
+                            </Link>
+                          </BreadcrumbLink>
+                        )}
+                      </BreadcrumbItem>
+                    </React.Fragment>
+                  ))}
+                </BreadcrumbList>
+              </Breadcrumb>
+              <div className="ml-auto">
+                <ModeToggle />
+              </div>
+            </div>
+          </header>
 
-        <main className="flex-1 overflow-auto p-6">
-          <Outlet context={{ bears, addBear, fishes, addFish }} />
-        </main>
-      </SidebarInset>
+          <main className="flex-1 overflow-y-auto p-6 w-full">
+            <div className="w-full max-w-full">
+              <Outlet context={{ bears, addBear, fishes, addFish }} />
+            </div>
+          </main>
+        </div>
+      </div>
     </SidebarProvider>
   );
 }
